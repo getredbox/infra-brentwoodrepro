@@ -14,7 +14,7 @@ locals {
   main_ec2_rbd_volume_size = var.RBBS_BR_rbd_volume_size
   main_ec2_rbd_volume_type = var.RBBS_BR_rbd_volume_type
 
-# Main EC2: EIP Association
+  # Main EC2: EIP Association
   main_ec2_eip = var.RBBS_BR_eip
 
   # Main EC2: Security Group

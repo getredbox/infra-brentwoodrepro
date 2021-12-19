@@ -1,6 +1,7 @@
 resource "aws_security_group" "main_sg" {
   # name        = local.name
   description = "Settings for ${local.name}"
+  vpc_id      = local.default_vpc_id
 
   # Main Security Rules
   ## Server secure Websites
