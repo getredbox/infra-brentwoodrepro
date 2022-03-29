@@ -1,0 +1,17 @@
+version: "3.2"
+services:
+  nginx-proxy:
+    image: nginx:1.21
+    container_name: nginx-proxy
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - nginx-proxy
+    restart: always
+    volumes:
+      - "/home/ec2-user/.cloudflare:/etc/.cloudflare"
+      - "./artifacts/conf.d/brgraphics.com.conf:/etc/nginx/conf.d/brgraphics.com.conf"
+networks:
+  nginx-proxy:
+    external: true

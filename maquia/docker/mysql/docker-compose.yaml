@@ -1,0 +1,23 @@
+version: '3.3'
+
+services:
+  db-mysql:
+    container_name: rbbs_br_mysql
+    image: mysql:8.0
+    volumes:
+      - rbbs_br_mysql:/var/lib/mysql
+    ports:
+      - "3306"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: '${RBBS_BR_mysql_root_pwd}'
+
+volumes:
+    rbbs_br_mysql:
+
+networks:
+  default:
+    external: true
+    name: 'nginx-proxy'
+
+

@@ -1,0 +1,33 @@
+version: '3.3'
+
+services:
+  wp-brgraphics:
+    image: "${RBBS_BR_brgraphics_docker_image}"
+    volumes:
+      # PHP Settings
+      - "./artifacts/php.conf.main.ini:/usr/local/etc/php/conf.d/php.conf.main.ini:ro"
+      # WordPress
+      - "./artifacts/wp-content:/var/www/html/wp-content"
+      # Application Specific
+      ## None for now.
+    # ports:
+    #   - "${TSC_ports}"
+    networks:
+      - '${RBBS_BR_brgraphics_docker_network}'
+    container_name: wp-brgraphics
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: ${RBBS_BR_brgraphics_db_host}
+      WORDPRESS_DB_NAME: ${RBBS_BR_brgraphics_db_name}
+      WORDPRESS_DB_USER: ${RBBS_BR_brgraphics_db_user}
+      WORDPRESS_DB_PASSWORD: ${RBBS_BR_brgraphics_db_password}
+      WORDPRESS_CONFIG_EXTRA: |
+        /* Fix site URL. */
+        define("WP_HOME", "${RBBS_BR_brgraphics_wp_home}");
+        define("WP_SITEURL", "${RBBS_BR_brgraphics_wp_home}");
+
+        /* WordFence to DB */
+        define('WFWAF_STORAGE_ENGINE', '${RBBS_BR_brgraphics_wfwaf_storage_engine}');
+networks:
+  nginx-proxy:
+    external: true
